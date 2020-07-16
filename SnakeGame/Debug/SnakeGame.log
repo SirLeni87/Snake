@@ -1,0 +1,3 @@
+﻿  SinglePlayer.cpp
+C:\Users\Tomasz\source\repos\Snake\Snake\SinglePlayer.cpp(16,29): warning C4305: 'argument': truncation from 'double' to 'float'
+  SnakeGame.vcxproj -> C:\Users\Tomasz\source\repos\SnakeGame\Debug\SnakeGame.exe
