@@ -1,3 +1,5 @@
-﻿  SinglePlayer.cpp
-C:\Users\Tomasz\source\repos\Snake\Snake\SinglePlayer.cpp(16,29): warning C4305: 'argument': truncation from 'double' to 'float'
+﻿  Food.cpp
+C:\Users\Tomasz\source\repos\SnakeGame\SnakeGame\Food.cpp(12,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Tomasz\source\repos\SnakeGame\SnakeGame\Food.cpp(17,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tomasz\source\repos\SnakeGame\SnakeGame\Food.cpp(17,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   SnakeGame.vcxproj -> C:\Users\Tomasz\source\repos\SnakeGame\Debug\SnakeGame.exe

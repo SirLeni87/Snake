@@ -21,13 +21,31 @@
     <ClCompile Include="..\..\Simon Says\Simon Says\Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Snake\Snake\SinglePlayer.cpp">
+    <ClCompile Include="Block.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
+    <ClCompile Include="Board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.cpp">
+    <ClCompile Include="SinglePlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Snake.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Head.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Segment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceHolder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Food.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,13 +53,31 @@
     <ClInclude Include="..\..\Simon Says\Simon Says\Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Snake\Snake\SinglePlayer.h">
+    <ClInclude Include="Block.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Grid.h">
+    <ClInclude Include="Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
+    <ClInclude Include="SinglePlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Snake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Head.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Segment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tail.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceHolder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Food.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
