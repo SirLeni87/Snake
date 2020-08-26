@@ -1,43 +1,39 @@
 #include "Food.h"
 
-sf::Texture* Food::texture;
 
-Food::Food()
-{
-	newPosition();
-}
-
-void Food::newPosition()
+Food::Food(bool pvp)
 {
 	srand(time(NULL));
 
-	int x = ((rand() % 14 + 1) * 32) + 16;
+	int x;
+	if (pvp)
+		x = ((rand() % 14 + 1) * 32) + 16 + 512;
+	else
+		x = ((rand() % 14 + 1) * 32) + 16;
+
+	int y = ((rand() % 14 + 1) * 32) + 16;
+
+	this->sprite.setPosition(x, y);
+}
+
+void Food::newPosition(bool pvp)
+{
+	srand(time(NULL));
+
+	int x;
+	if (pvp)
+		x = ((rand() % 14 + 1) * 32) + 16 + 512;
+	else
+		x = ((rand() % 14 + 1) * 32) + 16;
+
 	int y = ((rand() % 14 + 1) * 32) + 16;
 
 	this->sprite.setPosition(x,y);
 }
 
-void Food::initialize()
+void Food::setTexture(std::string texture)
 {
-	texture = new sf::Texture;
-
-	for (int i = 0;; i++)
-	{
-		if (texture->loadFromFile("resources/images/fruit-temp.png"))
-		{
-			break;
-		}
-		else if (i >= 4)
-		{
-			std::cout << "Could not load a texture!" << std::endl;
-			exit(1);
-		}
-	}
-}
-
-void Food::setTexture()
-{
-	this->sprite.setTexture(*texture);
+	this->sprite.setTexture(ResourceHolder::loadTexture(texture));
 	this->sprite.setScale(0.5, 0.5);
 
 	this->sprite.setOrigin(this->sprite.getLocalBounds().width / 2.f, this->sprite.getLocalBounds().height / 2.f);
@@ -46,6 +42,11 @@ void Food::setTexture()
 sf::Vector2f Food::getPosition()
 {
 	return this->sprite.getPosition();
+}
+
+sf::Sprite& Food::getSprite()
+{
+	return this->sprite;
 }
 
 void Food::draw(sf::RenderWindow& window)

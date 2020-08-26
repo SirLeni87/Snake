@@ -1,15 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-using namespace sf;
-
 class Block
 {
 public:
-	Block(Texture*, int, int);
-	RectangleShape getRect();
+	Block(sf::Texture&, int, int);
+	sf::Sprite& getSprite();
 
 private:
-	RectangleShape rect;
+	sf::Sprite sprite;
 };
 

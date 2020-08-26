@@ -1,16 +1,19 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <iostream>
 
 class ResourceHolder
 {
 public:
-	ResourceHolder();
-    sf::Texture& getTexture(std::string path);
-    sf::Font& getFont(std::string path);
+	static void insertTexture(std::string, std::string);
+	static sf::Texture& loadTexture(std::string);
+	static void insertFont(std::string, std::string);
+	static sf::Font& loadFont(std::string);
 
 private:
-    std::map<std::string, sf::Texture> textures;
-    std::map<std::string, sf::Font> fonts;
+	static std::map<std::string, sf::Texture> textures;
+	static std::map<std::string, sf::Font> fonts;
 };
 

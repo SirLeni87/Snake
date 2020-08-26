@@ -1,21 +1,20 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include <time.h>
 #include <stdlib.h>
-#include <iostream>
+#include "ResourceHolder.h"
 
 class Food
 {
 public:
-	Food();
-	void newPosition();
-	static void initialize();
-	void setTexture();
+	Food(bool = false);
+	void newPosition(bool = false);
+	void setTexture(std::string);
 	sf::Vector2f getPosition();
+	sf::Sprite&
+		getSprite();
 	void draw(sf::RenderWindow&);
 
-private:
+protected:
 	sf::Sprite sprite;
-	static sf::Texture* texture;
 };
 

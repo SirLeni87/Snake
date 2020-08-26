@@ -147,27 +147,27 @@
   <ItemGroup>
     <ClCompile Include="..\..\Simon Says\Simon Says\Button.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Buff.cpp" />
     <ClCompile Include="Food.cpp" />
-    <ClCompile Include="Head.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="PvP.cpp" />
     <ClCompile Include="ResourceHolder.cpp" />
     <ClCompile Include="Segment.cpp" />
     <ClCompile Include="SinglePlayer.cpp" />
     <ClCompile Include="Snake.cpp" />
-    <ClCompile Include="Tail.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Simon Says\Simon Says\Button.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Buff.h" />
     <ClInclude Include="Food.h" />
-    <ClInclude Include="Head.h" />
+    <ClInclude Include="PvP.h" />
     <ClInclude Include="ResourceHolder.h" />
     <ClInclude Include="Segment.h" />
     <ClInclude Include="SinglePlayer.h" />
     <ClInclude Include="Snake.h" />
-    <ClInclude Include="Tail.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

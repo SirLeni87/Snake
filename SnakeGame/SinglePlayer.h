@@ -1,6 +1,5 @@
 #pragma once
 #include "Board.h"
-#include <thread>
 
 class SinglePlayer
 {
@@ -9,7 +8,7 @@ public:
 
 private:
 	void initialize(Board&, Snake&, Food&, bool&);
-	void checkCollision(Board&, Snake&, Food&);
-	void move(Snake&);
+	bool checkCollision(Board&, Snake&, Food&, bool&);
+	void move(Snake&, bool&);
 };
 

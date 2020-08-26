@@ -1,14 +1,15 @@
 #pragma once
 #include <iostream>
-#include "Head.h"
-#include "Tail.h"
+#include "Segment.h"
+#include <vector>
+#include <thread>
 
 
 class Snake
 {
 public:
 	Snake(int, int);
-	static void initialize();
+	void addSegment();
 	void draw(sf::RenderWindow&);
 	void setTextures();
 	void updateTexture();
@@ -16,12 +17,19 @@ public:
 	sf::Vector2f getPosition();
 	void setDirection(Direction);
 	Direction getDirection();
-	void move();
+	std::vector<Segment>& getSegmentList();
+	void move(bool&);
+	void bend();
+	bool isCollided();
+	void setElusiveness();
+	bool isElusive();
+	void afterSwap();
 
 private:
-	Head head;
-	Segment segment;
-	Tail tail;
+	Segment head;
+	std::vector<Segment> segments;
+	Segment tail;
 	Direction dir;
+	bool elusive = false;
 };
 

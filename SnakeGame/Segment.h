@@ -1,7 +1,5 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <SFML/Graphics.hpp>
+#include "ResourceHolder.h"
 
 
 enum class Direction
@@ -17,9 +15,8 @@ class Segment
 public:
 	Segment();
 	void setPosition(int, int);
+	void setPosition(sf::Vector2f);
 	sf::Vector2f getPosition();
-	static sf::Texture& getTexture();
-	static void setSegmentTexture(std::string);
 	sf::Sprite& getSprite();
 	void setDirection(Direction);
 	Direction getDirection();
@@ -27,7 +24,6 @@ public:
 
 protected:
 	sf::Sprite sprite;
-	static sf::Texture* texture;
 	Direction dir;
 };
 

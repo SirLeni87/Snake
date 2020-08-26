@@ -1,14 +1,14 @@
 #include "Block.h"
 
-Block::Block(Texture* texture, int x, int y)
+Block::Block(sf::Texture& texture, int x, int y)
 {
-	this->rect.setSize(Vector2f(32, 32));
-	this->rect.setTexture(texture);
-	this->rect.setPosition(x + 16, y + 16);
-	this->rect.setOrigin(this->rect.getLocalBounds().width / 2.f, this->rect.getLocalBounds().height / 2.f);
+	this->sprite.setTexture(texture);
+	this->sprite.setScale(0.5f, 0.5f);
+	this->sprite.setPosition(x, y);
+	this->sprite.setOrigin(this->sprite.getLocalBounds().width / 2.f, this->sprite.getLocalBounds().height / 2.f);
 }
 
-RectangleShape Block::getRect()
+sf::Sprite& Block::getSprite()
 {
-	return this->rect;
+	return this->sprite;
 }
