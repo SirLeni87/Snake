@@ -3,37 +3,47 @@
 using namespace sf;
 using namespace std;
 
-SinglePlayer::SinglePlayer()
+SinglePlayer::SinglePlayer(float difficulty)
 {
-	RectangleShape loseScreen(Vector2f(512, 512));
+	RectangleShape loseScreen(Vector2f(768, 768));
 	loseScreen.setFillColor(Color(196, 4, 4, 120));
-	loseScreen.setPosition(256, 256);
+	loseScreen.setPosition(384, 384);
 	loseScreen.setOrigin(loseScreen.getLocalBounds().width /2, loseScreen.getLocalBounds().height / 2);
 	Text loseText;
 	loseText.setFont(ResourceHolder::loadFont("lumberjack"));
 	loseText.setString("You Lost!");
-	loseText.setCharacterSize(50);
+	loseText.setCharacterSize(70);
 	loseText.setOrigin(loseText.getLocalBounds().width / 2, loseText.getLocalBounds().height / 2 + 100);
 	loseText.setPosition(loseScreen.getOrigin());
 	loseText.setFillColor(Color::Black);
 
-	RectangleShape winScreen(Vector2f(512, 512));
+	RectangleShape winScreen(Vector2f(768, 768));
 	winScreen.setFillColor(Color(51, 202, 4, 120));
-	winScreen.setPosition(256, 256);
+	winScreen.setPosition(384, 384);
 	winScreen.setOrigin(winScreen.getLocalBounds().width /2, winScreen.getLocalBounds().height / 2);
 	Text winText;
 	winText.setFont(ResourceHolder::loadFont("lumberjack"));
 	winText.setString("You Won!");
-	winText.setCharacterSize(50);
+	winText.setCharacterSize(70);
 	winText.setOrigin(winText.getLocalBounds().width / 2, winText.getLocalBounds().height / 2 + 100);
 	winText.setPosition(winScreen.getOrigin());
 	winText.setFillColor(Color::Black);
 		
-	RectangleShape blackScreen(Vector2f(512,512));
+	RectangleShape blackScreen(Vector2f(768, 768));
 	blackScreen.setFillColor(Color::Black);
 	blackScreen.setPosition(0,0);
 
-	RenderWindow window(VideoMode(512, 512), "MySnake", Style::Titlebar | Style::Close);
+	cb::Button restartButton(Vector2f(30, 550), Vector2f(190, 90), Color(230, 230, 230), 8, Color(225, 225, 225), "RESTART", Vector2f(32, 560), 45);
+	restartButton.setFont(ResourceHolder::loadFont("roboto-thin"));
+
+	cb::Button menuButton(Vector2f(289, 550), Vector2f(190, 90), Color(230, 230, 230), 8, Color(225, 225, 225), "MENU", Vector2f(309, 555), 55);
+	menuButton.setFont(ResourceHolder::loadFont("roboto-thin"));
+
+	cb::Button exitButton(Vector2f(548, 550), Vector2f(190, 90), Color(230, 230, 230), 8, Color(225, 225, 225), "EXIT", Vector2f(589, 555), 55);
+	exitButton.setFont(ResourceHolder::loadFont("roboto-thin"));
+
+
+	RenderWindow window(VideoMode(768, 768), "The Eel", Style::Titlebar | Style::Close);
 
 	Image icon;
 	for (int i = 0; i < 5; i++)
@@ -44,9 +54,16 @@ SinglePlayer::SinglePlayer()
 
 	Board board;
 	Event event;
-	Snake snake(128, 128);
+	Snake snake(192, 192);
 	Food food;
 	Clock clock;
+
+	Text segmentCount;
+	segmentCount.setFont(ResourceHolder::loadFont("roboto-thin"));
+	segmentCount.setString(to_string(snake.getSegmentList().size()));
+	segmentCount.setCharacterSize(60);
+	segmentCount.setPosition(376, 50);
+	segmentCount.setFillColor(Color(92, 177, 219));
 
 	bool loadingDone = false;
 	bool threading = true;
@@ -54,6 +71,9 @@ SinglePlayer::SinglePlayer()
 	bool dirChanged = false;
 
 	Direction dirChange;
+
+	float velocityChange = difficulty; //hard - 0.002, medium - 0.0015, easy - 0.001, chillout - 0
+	float speedUp = 0;
 
 	while (window.isOpen())
 	{
@@ -70,7 +90,6 @@ SinglePlayer::SinglePlayer()
 				{
 				case Keyboard::W:
 					if (snake.getDirection() != Direction::south)
-						//snake.setDirection(Direction::north);
 					{
 						dirChange = Direction::north;
 						dirChanged = true;
@@ -79,7 +98,6 @@ SinglePlayer::SinglePlayer()
 					break;
 				case Keyboard::D:
 					if (snake.getDirection() != Direction::west)
-						//snake.setDirection(Direction::east);
 					{
 						dirChange = Direction::east;
 						dirChanged = true;
@@ -88,7 +106,6 @@ SinglePlayer::SinglePlayer()
 					break;
 				case Keyboard::S:
 					if (snake.getDirection() != Direction::north)
-						//snake.setDirection(Direction::south);
 					{
 						dirChange = Direction::south;
 						dirChanged = true;
@@ -97,7 +114,6 @@ SinglePlayer::SinglePlayer()
 					break;
 				case Keyboard::A:
 					if (snake.getDirection() != Direction::east)
-						//snake.setDirection(Direction::west);
 					{
 						dirChange = Direction::west;
 						dirChanged = true;
@@ -124,10 +140,8 @@ SinglePlayer::SinglePlayer()
 			continue;
 		}
 
-		if (clock.getElapsedTime().asSeconds() >= 0.5)
+		if (clock.getElapsedTime().asSeconds() >= (0.5 - speedUp))
 		{
-			//std::thread moveSnake(&SinglePlayer::move, this, std::ref(snake));
-			//moveSnake.detach();
 			if (dirChanged)
 			{
 				dirChanged = false;
@@ -135,21 +149,26 @@ SinglePlayer::SinglePlayer()
 			}
 			move(snake, growth);
 			clock.restart();
+			speedUp += velocityChange;
 		}
-
-		//if (checkCollision(board, snake, food, growth))
-		//{
-		//	lost = true;
-		//}
+		segmentCount.setString(to_string(snake.getSegmentList().size()));
 
 		board.draw(window);
 		snake.draw(window);
 		food.draw(window);
+		window.draw(segmentCount);
+
+		window.display();
 
 		if (snake.getSegmentList().size() == 20)
 		{
 			window.draw(winScreen);
 			window.draw(winText);
+
+			restartButton.draw(window);
+			menuButton.draw(window);
+			exitButton.draw(window);
+
 			window.display();
 
 			while (1)
@@ -161,6 +180,24 @@ SinglePlayer::SinglePlayer()
 						window.close();
 						break;
 					}
+					if (event.type == Event::MouseButtonPressed)
+					{
+						if (restartButton.isMouseOver(window))
+						{
+							window.close();
+							SinglePlayer::SinglePlayer(difficulty);
+						}
+						else if (menuButton.isMouseOver(window))
+						{
+							window.close();
+							Menu::menu();
+						}
+						else if (exitButton.isMouseOver(window))
+						{
+							window.close();
+							exit(0);
+						}
+					}
 				}
 			}
 		}
@@ -168,22 +205,43 @@ SinglePlayer::SinglePlayer()
 		{
 			window.draw(loseScreen);
 			window.draw(loseText);
+
+			restartButton.draw(window);
+			menuButton.draw(window);
+			exitButton.draw(window);
+
 			window.display();
 
 			while (1)
 			{
-				while(window.pollEvent(event))
+				while (window.pollEvent(event))
 				{
 					if (event.type == Event::Closed)
 					{
 						window.close();
 						break;
 					}
+					if (event.type == Event::MouseButtonPressed)
+					{
+						if (restartButton.isMouseOver(window))
+						{
+							window.close();
+							SinglePlayer::SinglePlayer(difficulty);
+						}
+						else if (menuButton.isMouseOver(window))
+						{
+							window.close();
+							Menu::menu();
+						}
+						else if (exitButton.isMouseOver(window))
+						{
+							window.close();
+							exit(0);
+						}
+					}
 				}
 			}
 		}
-
-		window.display();
 	}
 }
 

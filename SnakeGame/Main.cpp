@@ -1,68 +1,49 @@
-#include "Button.h"
-#include "SinglePlayer.h"
-#include "PvP.h"
-#include <iostream>
+#include "Menu.h"
 
 using namespace sf;
 using namespace std;
 
+//ale chujowy kod 
+/* chuj */
 
 int main()
 {
 	ResourceHolder::insertFont("lumberjack", "resources/fonts/Lumberjack.otf");
+	ResourceHolder::insertFont("roboto-thin", "resources/fonts/Roboto-Thin.ttf");
+	ResourceHolder::insertFont("roboto-regular", "resources/fonts/Roboto-Regular.ttf");
+	ResourceHolder::insertTexture("menu", "resources/images/menu.png");
+	ResourceHolder::insertTexture("background", "resources/images/background-water.png");
+	ResourceHolder::insertTexture("algae-up", "resources/images/algae-up.png");
+	ResourceHolder::insertTexture("algae-left", "resources/images/algae-left.png");
+	ResourceHolder::insertTexture("algae-right", "resources/images/algae-right.png");
+	ResourceHolder::insertTexture("algae-down", "resources/images/algae-down.png");
+	ResourceHolder::insertTexture("algae-corner", "resources/images/algae-corner.png");
+	ResourceHolder::insertTexture("head", "resources/images/head.png");
+	ResourceHolder::insertTexture("segment", "resources/images/segment.png");
+	ResourceHolder::insertTexture("bent-segment", "resources/images/bent-segment.png");
+	ResourceHolder::insertTexture("tail", "resources/images/tail.png");
+	ResourceHolder::insertTexture("bent-tail", "resources/images/tail-bent1.png");
+	ResourceHolder::insertTexture("bent-tail2", "resources/images/tail-bent2.png");
+	ResourceHolder::insertTexture("head2", "resources/images/head2.png");
+	ResourceHolder::insertTexture("segment2", "resources/images/segment2.png");
+	ResourceHolder::insertTexture("bent-segment2", "resources/images/bent-segment2.png");
+	ResourceHolder::insertTexture("tail2", "resources/images/tail2.png");
+	ResourceHolder::insertTexture("bent-tail3", "resources/images/tail-bent3.png");
+	ResourceHolder::insertTexture("bent-tail4", "resources/images/tail-bent4.png");
+	ResourceHolder::insertTexture("fish1", "resources/images/fish1.png");
+	ResourceHolder::insertTexture("fish2", "resources/images/fish2.png");
+	ResourceHolder::insertTexture("nautilus", "resources/images/nautilus.png");
+	ResourceHolder::insertTexture("shrimp", "resources/images/shrimp.png");
+	ResourceHolder::insertTexture("pufferfish", "resources/images/pufferfish.png");
+	ResourceHolder::insertTexture("jellyfish", "resources/images/jellyfish.png");
+	ResourceHolder::insertTexture("whirlpool", "resources/images/whirlpool.png");
+	ResourceHolder::insertTexture("net", "resources/images/net.png");
+	ResourceHolder::insertTexture("sailfish", "resources/images/sailfish.png");
+	ResourceHolder::insertTexture("crab", "resources/images/crab.png");
+	ResourceHolder::insertTexture("indicator", "resources/images/crab_indicator.png");
+	ResourceHolder::insertTexture("shell", "resources/images/shell.png");
 
-	Image icon;
-	for (int i = 0; i < 5; i++)
-	{
-		icon.loadFromFile("resources/images/snake-icon.png");
-	}
-
-	RenderWindow window(VideoMode(400, 600), "MySnake", Style::Titlebar | Style::Close); 
-	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-	Event event;
-
-	cb::Button singleButton(Vector2f(105, 80), Vector2f(190, 90), Color(10, 150, 50), 8, Color(80, 150, 120), "PLAY", Vector2f(145, 85), 55);
-	singleButton.setFont(ResourceHolder::loadFont("lumberjack"));
-
-	cb::Button pvpButton(Vector2f(105, 250), Vector2f(190, 90), Color(63, 165, 209), 8, Color(80, 100, 180), "PvP", Vector2f(158, 255), 55);
-	pvpButton.setFont(ResourceHolder::loadFont("lumberjack"));
-
-	cb::Button exitButton(Vector2f(105, 420), Vector2f(190, 90), Color(150, 10, 50), 8, Color(150, 80, 120), "EXIT", Vector2f(150, 425), 55);
-	exitButton.setFont(ResourceHolder::loadFont("lumberjack"));
-
-	while (window.isOpen())
-	{
-		while (window.pollEvent(event))
-		{
-			switch (event.type)
-			{
-			case Event::Closed:
-				window.close();
-				break;
-
-			case Event::MouseButtonPressed:
-				if (singleButton.isMouseOver(window))
-				{
-					SinglePlayer();
-				}
-				else if (pvpButton.isMouseOver(window))
-				{
-					PvP();
-				}
-				else if (exitButton.isMouseOver(window))
-				{
-					window.close();
-				}
-			}
-		}
-		window.clear();
-
-		singleButton.draw(window);
-		pvpButton.draw(window);
-		exitButton.draw(window);
-
-		window.display();
-	}
+	Menu::menu();
 
 	return 0;
 }

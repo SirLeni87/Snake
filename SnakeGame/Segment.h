@@ -20,6 +20,7 @@ public:
 	sf::Sprite& getSprite();
 	void setDirection(Direction);
 	Direction getDirection();
+	static std::string dirToString(Direction);
 
 
 protected:

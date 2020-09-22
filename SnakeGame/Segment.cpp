@@ -35,3 +35,18 @@ Direction Segment::getDirection()
 {
 	return this->dir;
 }
+
+std::string Segment::dirToString(Direction dir)
+{
+	switch (dir)
+	{
+	case Direction::north:
+		return "north";
+	case Direction::east:
+		return "east";
+	case Direction::south:
+		return "south";
+	case Direction::west:
+		return "west";
+	}
+}

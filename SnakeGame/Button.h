@@ -12,6 +12,7 @@ namespace custom_button
 	private:
 		RectangleShape button;
 		Text text;
+		bool active = true;
 
 	public:
 		Button(Vector2f position, Vector2f size, Color fillColor, float outlineThickness = 0, Color outlineColor = Color(0, 0, 0, 0), String text = "", Vector2f textPosition = Vector2f(0, 0), int textSize = 30);
@@ -19,6 +20,7 @@ namespace custom_button
 		bool isMouseOver(RenderWindow& window);
 		void setFont(Font&);
 		void setColor(Color);
+		void setActive(bool);
 	};
 
 }

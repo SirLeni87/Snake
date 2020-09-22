@@ -6,15 +6,19 @@ Snake::Snake(int x, int y)
 {
 	Segment segment;
 	this->segments.push_back(segment);
-	setPosition(x + 16, y + 16);
+	setPosition(x + 24, y + 24);
 	this->dir = Direction::west;
 }
 
-void Snake::addSegment()
+void Snake::addSegment(bool second)
 {
 	Segment segment;
-	segment.getSprite().setTexture(ResourceHolder::loadTexture("segment"));
-	//segment.getSprite().setScale(0.5, 0.5);
+	if(!second)
+		segment.getSprite().setTexture(ResourceHolder::loadTexture("segment"));
+	else
+		segment.getSprite().setTexture(ResourceHolder::loadTexture("segment2"));
+
+	//segment.getSprite().setScale(1.5, 1.5);
 	segment.getSprite().setOrigin(segment.getSprite().getLocalBounds().width / 2.f, segment.getSprite().getLocalBounds().height / 2.f);
 	segment.setPosition(this->segments.back().getPosition());
 	this->segments.push_back(segment);
@@ -31,22 +35,31 @@ void Snake::draw(sf::RenderWindow& window)
 
 }
 
-void Snake::setTextures()
+void Snake::setTextures(bool second)
 {
-	this->head.getSprite().setTexture(ResourceHolder::loadTexture("head"));
-	this->segments[0].getSprite().setTexture(ResourceHolder::loadTexture("segment"));
-	this->tail.getSprite().setTexture(ResourceHolder::loadTexture("tail"));
+	if (!second)
+	{
+		this->head.getSprite().setTexture(ResourceHolder::loadTexture("head"));
+		this->segments[0].getSprite().setTexture(ResourceHolder::loadTexture("segment"));
+		this->tail.getSprite().setTexture(ResourceHolder::loadTexture("tail"));
 
-	//this->head.getSprite().setScale(0.5, 0.5);
-	//this->segments[0].getSprite().setScale(0.5, 0.5);
-	//this->tail.getSprite().setScale(0.5, 0.5);
+		this->head.getSprite().setOrigin(this->head.getSprite().getLocalBounds().width / 2.f, this->head.getSprite().getLocalBounds().height / 2.f);
+		this->segments[0].getSprite().setOrigin(this->segments[0].getSprite().getLocalBounds().width / 2.f, this->segments[0].getSprite().getLocalBounds().height / 2.f);
+		this->tail.getSprite().setOrigin(this->tail.getSprite().getLocalBounds().width / 2.f, this->tail.getSprite().getLocalBounds().height / 2.f);
+	}
+	else
+	{
+		this->head.getSprite().setTexture(ResourceHolder::loadTexture("head2"));
+		this->segments[0].getSprite().setTexture(ResourceHolder::loadTexture("segment2"));
+		this->tail.getSprite().setTexture(ResourceHolder::loadTexture("tail2"));
 
-	this->head.getSprite().setOrigin(this->head.getSprite().getLocalBounds().width / 2.f, this->head.getSprite().getLocalBounds().height / 2.f);
-	this->segments[0].getSprite().setOrigin(this->segments[0].getSprite().getLocalBounds().width / 2.f, this->segments[0].getSprite().getLocalBounds().height / 2.f);
-	this->tail.getSprite().setOrigin(this->tail.getSprite().getLocalBounds().width / 2.f, this->tail.getSprite().getLocalBounds().height / 2.f);
+		this->head.getSprite().setOrigin(this->head.getSprite().getLocalBounds().width / 2.f, this->head.getSprite().getLocalBounds().height / 2.f);
+		this->segments[0].getSprite().setOrigin(this->segments[0].getSprite().getLocalBounds().width / 2.f, this->segments[0].getSprite().getLocalBounds().height / 2.f);
+		this->tail.getSprite().setOrigin(this->tail.getSprite().getLocalBounds().width / 2.f, this->tail.getSprite().getLocalBounds().height / 2.f);
+	}
 }
 
-void Snake::updateTexture()
+void Snake::updateTexture(bool second, bool afterSwap)
 {
 	switch (this->head.getDirection())
 	{
@@ -88,14 +101,15 @@ void Snake::updateTexture()
 		break;
 	}
 
-	bend();
+	if(!afterSwap)
+		bend(second);
 }
 
 void Snake::setPosition(int x, int y)
 {
 	this->head.setPosition(x, y);
-	this->segments[0].setPosition(x + 32, y);
-	this->tail.setPosition(x + 64, y);
+	this->segments[0].setPosition(x + 48, y);
+	this->tail.setPosition(x + 96, y);
 }
 
 void Snake::setDirection(Direction dir)
@@ -113,11 +127,11 @@ std::vector<Segment>& Snake::getSegmentList()
 	return this->segments;
 }
 
-void Snake::move(bool& growth)
+void Snake::move(bool& growth, bool second)
 {
 	if (growth)
 	{
-		addSegment();
+		addSegment(second);
 	}
 
 	int tempX = this->head.getPosition().x;
@@ -129,16 +143,16 @@ void Snake::move(bool& growth)
 	switch (this->dir)
 	{
 	case Direction::north:
-		this->head.setPosition(tempX, tempY - 32);
+		this->head.setPosition(tempX, tempY - 48);
 		break;
 	case Direction::east:
-		this->head.setPosition(tempX + 32, tempY);
+		this->head.setPosition(tempX + 48, tempY);
 		break;
 	case Direction::south:
-		this->head.setPosition(tempX, tempY + 32);
+		this->head.setPosition(tempX, tempY + 48);
 		break;
 	case Direction::west:
-		this->head.setPosition(tempX - 32, tempY);
+		this->head.setPosition(tempX - 48, tempY);
 		break;
 	}
 	this->head.setDirection(this->dir);
@@ -161,14 +175,17 @@ void Snake::move(bool& growth)
 	}
 	growth = false;
 
-	updateTexture();
+	updateTexture(second);
 }
 
-void Snake::bend()
+void Snake::bend(bool second)
 {
 	if (this->head.getDirection() != this->segments[0].getDirection())
 	{
-		this->segments[0].getSprite().setTexture(ResourceHolder::loadTexture("bent-segment"));
+		if(second)
+			this->segments[0].getSprite().setTexture(ResourceHolder::loadTexture("bent-segment2"));
+		else
+			this->segments[0].getSprite().setTexture(ResourceHolder::loadTexture("bent-segment"));
 
 		switch (this->segments[0].getDirection())
 		{
@@ -200,14 +217,20 @@ void Snake::bend()
 	}
 	else
 	{
-		this->segments[0].getSprite().setTexture(ResourceHolder::loadTexture("segment"));
+		if(second)
+			this->segments[0].getSprite().setTexture(ResourceHolder::loadTexture("segment2"));
+		else
+			this->segments[0].getSprite().setTexture(ResourceHolder::loadTexture("segment"));
 	}
 
 	for (int i = 1; i < this->segments.size(); i++)
 	{
 		if (this->segments[i - 1].getDirection() != this->segments[i].getDirection())
 		{
-			this->segments[i].getSprite().setTexture(ResourceHolder::loadTexture("bent-segment"));
+			if(second)
+				this->segments[i].getSprite().setTexture(ResourceHolder::loadTexture("bent-segment2"));
+			else
+				this->segments[i].getSprite().setTexture(ResourceHolder::loadTexture("bent-segment"));
 
 			switch (this->segments[i].getDirection())
 			{
@@ -239,7 +262,10 @@ void Snake::bend()
 		}
 		else
 		{
-			this->segments[i].getSprite().setTexture(ResourceHolder::loadTexture("segment"));
+			if(second)
+				this->segments[i].getSprite().setTexture(ResourceHolder::loadTexture("segment2"));
+			else
+				this->segments[i].getSprite().setTexture(ResourceHolder::loadTexture("segment"));
 		}
 	}
 
@@ -251,48 +277,80 @@ void Snake::bend()
 		case Direction::north:
 			if (this->segments.back().getDirection() == Direction::east)
 			{
-				this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail2"));
+				if(second)
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail4"));
+				else
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail2"));
+				
 				this->tail.getSprite().setRotation(0);
 			}
 			else
 			{
-				this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail"));
+				if (second)
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail3"));
+				else
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail"));
+
 				this->tail.getSprite().setRotation(0);
 			}
 			break;
 		case Direction::east:
 			if (this->segments.back().getDirection() == Direction::north)
 			{
-				this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail"));
+				if (second)
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail3"));
+				else
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail"));
+
 				this->tail.getSprite().setRotation(90);
 			}
 			else
 			{
-				this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail2"));
+				if (second)
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail4"));
+				else
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail2"));
+
 				this->tail.getSprite().setRotation(90);
 			}
 			break;
 		case Direction::south:
 			if (this->segments.back().getDirection() == Direction::east)
 			{
-				this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail"));
+				if (second)
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail3"));
+				else
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail"));
+
 				this->tail.getSprite().setRotation(180);
 			}
 			else
 			{
-				this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail2"));
+				if (second)
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail4"));
+				else
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail2"));
+
 				this->tail.getSprite().setRotation(180);
 			}
 			break;
 		case Direction::west:
 			if (this->segments.back().getDirection() == Direction::north)
 			{
-				this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail2"));
+				if (second)
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail4"));
+				else
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail2"));
+
 				this->tail.getSprite().setRotation(270);
 			}
 			else
 			{
-				this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail"));
+				if (second)
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail3"));
+				else
+					this->tail.getSprite().setTexture(ResourceHolder::loadTexture("bent-tail"));
+
 				this->tail.getSprite().setRotation(270);
 			}
 			break;
@@ -300,7 +358,10 @@ void Snake::bend()
 	}
 	else
 	{
-		this->tail.getSprite().setTexture(ResourceHolder::loadTexture("tail"));
+		if(second)
+			this->tail.getSprite().setTexture(ResourceHolder::loadTexture("tail2"));
+		else
+			this->tail.getSprite().setTexture(ResourceHolder::loadTexture("tail"));
 	}
 }
 
@@ -320,16 +381,49 @@ bool Snake::isCollided()
 void Snake::setElusiveness()
 {
 	this->elusive = true;
-	std::cout << "siema" << std::endl;
 
 	std::thread elusiveCountdown([this]() {
 		Clock clock;
-		std::cout << "no i co?" << std::endl;
+		Clock flickerClock;
+		bool transparent = false;
 		while (1)
 		{
 			if (clock.getElapsedTime().asSeconds() > 3)
 			{
-				std::cout << "XXXXXXXXXXXXX" << std::endl;
+
+				if (flickerClock.getElapsedTime().asSeconds() > 0.2)
+				{
+					if (!transparent)
+					{
+						this->head.getSprite().setColor(Color(255,255,255,128));
+						for (Segment& s : this->segments)
+						{
+							s.getSprite().setColor(Color(255, 255, 255, 128));
+						}
+						this->tail.getSprite().setColor(Color(255,255,255,128));
+						transparent = true;
+					}
+					else
+					{
+						this->head.getSprite().setColor(Color(255, 255, 255, 255));
+						for (Segment& s : this->segments)
+						{
+							s.getSprite().setColor(Color(255, 255, 255, 255));
+						}
+						this->tail.getSprite().setColor(Color(255, 255, 255, 255));
+						transparent = false;
+					}
+					flickerClock.restart();
+				}
+			}
+			if (clock.getElapsedTime().asSeconds() > 5)
+			{
+				this->head.getSprite().setColor(Color(255, 255, 255, 255));
+				for (Segment& s : this->segments)
+				{
+					s.getSprite().setColor(Color(255, 255, 255, 255));
+				}
+				this->tail.getSprite().setColor(Color(255, 255, 255, 255));
 				elusive = false;
 				break;
 			}
@@ -343,34 +437,94 @@ bool Snake::isElusive()
 	return this->elusive;
 }
 
-void Snake::afterSwap()
+void Snake::setStunned()
 {
-	Direction savedDir = this->head.getDirection();
+	this->stunned = true;
+
+	std::thread stunCountdown([this]() {
+		Clock clock;
+		while (1)
+		{
+			if (clock.getElapsedTime().asSeconds() > 2)
+			{
+				stunned = false;
+				break;
+			}
+		}
+		});
+	stunCountdown.detach();
+}
+
+bool Snake::isStunned()
+{
+	return this->stunned;
+}
+
+void Snake::setMissle(bool set)
+{
+	this->missleUp = set;
+}
+
+bool Snake::hasMissle()
+{
+	return this->missleUp;
+}
+
+void Snake::afterSwap(bool second)
+{
+	if (!second)
+		std::cout << "W funkcji snake1: dir = " << Segment::dirToString(this->head.getDirection()) << std::endl;
+	else
+		std::cout << "W funkcji snake2: dir = " << Segment::dirToString(this->head.getDirection()) << std::endl;
+
+
+	Direction savedDir = this->dir;
+	this->head.setDirection(savedDir);
 
 	switch (savedDir)
 	{
 	case Direction::north:
-		this->segments[0].setPosition(this->head.getPosition().x, this->head.getPosition().y + 32);
+		this->segments[0].setPosition(this->head.getPosition().x, this->head.getPosition().y + 48);
+		this->tail.setPosition(this->segments[0].getPosition().x, this->segments[0].getPosition().y + 48);
 		break;
 	case Direction::east:
-		this->segments[0].setPosition(this->head.getPosition().x - 32, this->head.getPosition().y);
+		this->segments[0].setPosition(this->head.getPosition().x - 48, this->head.getPosition().y);
+		this->tail.setPosition(this->segments[0].getPosition().x - 48, this->segments[0].getPosition().y);
 		break;
 	case Direction::south:
-		this->segments[0].setPosition(this->head.getPosition().x, this->head.getPosition().y - 32);
+		this->segments[0].setPosition(this->head.getPosition().x, this->head.getPosition().y - 48);
+		this->tail.setPosition(this->segments[0].getPosition().x, this->segments[0].getPosition().y - 48);
 		break;
 	case Direction::west:
-		this->segments[0].setPosition(this->head.getPosition().x + 32, this->head.getPosition().y);
+		this->segments[0].setPosition(this->head.getPosition().x + 48, this->head.getPosition().y);
+		this->tail.setPosition(this->segments[0].getPosition().x + 48, this->segments[0].getPosition().y);
 		break;
 	}
 
 	this->segments[0].setDirection(savedDir);
+	if(second)
+		this->segments[0].getSprite().setTexture(ResourceHolder::loadTexture("segment2"));
+	else
+		this->segments[0].getSprite().setTexture(ResourceHolder::loadTexture("segment"));
+
 	for (int i = 1; i < this->segments.size(); i++)
 	{
+		if(second)
+			this->segments[i].getSprite().setTexture(ResourceHolder::loadTexture("segment2"));
+		else
+			this->segments[i].getSprite().setTexture(ResourceHolder::loadTexture("segment"));
+
 		this->segments[i].setPosition(this->segments[0].getPosition());
 		this->segments[i].setDirection(savedDir);
 	}
-	this->tail.setPosition(this->segments[0].getPosition());
+	if(second)
+		this->tail.getSprite().setTexture(ResourceHolder::loadTexture("tail2"));
+	else
+		this->tail.getSprite().setTexture(ResourceHolder::loadTexture("tail"));
+
 	this->tail.setDirection(savedDir);
+
+	updateTexture(second, true);
 }
 
 sf::Vector2f Snake::getPosition()

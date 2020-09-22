@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Segment.h"
+#include "Missle.h"
 #include <vector>
 #include <thread>
 
@@ -9,21 +9,25 @@ class Snake
 {
 public:
 	Snake(int, int);
-	void addSegment();
+	void addSegment(bool = false);
 	void draw(sf::RenderWindow&);
-	void setTextures();
-	void updateTexture();
+	void setTextures(bool = false);
+	void updateTexture(bool = false, bool = false);
 	void setPosition(int, int);
 	sf::Vector2f getPosition();
 	void setDirection(Direction);
 	Direction getDirection();
 	std::vector<Segment>& getSegmentList();
-	void move(bool&);
-	void bend();
+	void move(bool&, bool = false);
+	void bend(bool = false);
 	bool isCollided();
 	void setElusiveness();
 	bool isElusive();
-	void afterSwap();
+	void setStunned();
+	bool isStunned();
+	void setMissle(bool);
+	bool hasMissle();
+	void afterSwap(bool = false);
 
 private:
 	Segment head;
@@ -31,5 +35,8 @@ private:
 	Segment tail;
 	Direction dir;
 	bool elusive = false;
+	bool stunned = false;
+	bool missleUp = false;
+	bool justShot = true;
 };
 

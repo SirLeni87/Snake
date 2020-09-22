@@ -1,10 +1,12 @@
 #pragma once
 #include "Board.h"
+#include "Button.h"
+#include "Menu.h"
 
 class SinglePlayer
 {
 public:
-	SinglePlayer();
+	SinglePlayer(float);
 
 private:
 	void initialize(Board&, Snake&, Food&, bool&);

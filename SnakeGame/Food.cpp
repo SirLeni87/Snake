@@ -7,11 +7,11 @@ Food::Food(bool pvp)
 
 	int x;
 	if (pvp)
-		x = ((rand() % 14 + 1) * 32) + 16 + 512;
+		x = ((rand() % 14 + 1) * 48) + 24 + 768;
 	else
-		x = ((rand() % 14 + 1) * 32) + 16;
+		x = ((rand() % 14 + 1) * 48) + 24;
 
-	int y = ((rand() % 14 + 1) * 32) + 16;
+	int y = ((rand() % 14 + 1) * 48) + 24;
 
 	this->sprite.setPosition(x, y);
 }
@@ -22,11 +22,11 @@ void Food::newPosition(bool pvp)
 
 	int x;
 	if (pvp)
-		x = ((rand() % 14 + 1) * 32) + 16 + 512;
+		x = ((rand() % 14 + 1) * 48) + 24 + 768;
 	else
-		x = ((rand() % 14 + 1) * 32) + 16;
+		x = ((rand() % 14 + 1) * 48) + 24;
 
-	int y = ((rand() % 14 + 1) * 32) + 16;
+	int y = ((rand() % 14 + 1) * 48) + 24;
 
 	this->sprite.setPosition(x,y);
 }
@@ -34,7 +34,7 @@ void Food::newPosition(bool pvp)
 void Food::setTexture(std::string texture)
 {
 	this->sprite.setTexture(ResourceHolder::loadTexture(texture));
-	this->sprite.setScale(0.5, 0.5);
+	this->sprite.setScale(0.75, 0.75);
 
 	this->sprite.setOrigin(this->sprite.getLocalBounds().width / 2.f, this->sprite.getLocalBounds().height / 2.f);
 }

@@ -145,12 +145,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Simon Says\Simon Says\Button.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Buff.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Missle.cpp" />
     <ClCompile Include="PvP.cpp" />
     <ClCompile Include="ResourceHolder.cpp" />
     <ClCompile Include="Segment.cpp" />
@@ -158,11 +160,13 @@
     <ClCompile Include="Snake.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Simon Says\Simon Says\Button.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Buff.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Food.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Missle.h" />
     <ClInclude Include="PvP.h" />
     <ClInclude Include="ResourceHolder.h" />
     <ClInclude Include="Segment.h" />

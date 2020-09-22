@@ -7,7 +7,10 @@ enum class BuffName
 	obstacle,
 	cut,
 	noCollision,
-	swap
+	swap,
+	stun,
+	speedUp,
+	missle
 };
 
 class Buff : public Food
