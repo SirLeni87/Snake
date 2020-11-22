@@ -62,4 +62,9 @@ void custom_button::Button::setActive(bool active)
 	this->active = active;
 }
 
+bool custom_button::Button::getActiveStatus()
+{
+	return this->active;
+}
+
 

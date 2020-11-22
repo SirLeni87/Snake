@@ -3,9 +3,6 @@
 using namespace sf;
 using namespace std;
 
-//ale chujowy kod 
-/* chuj */
-
 int main()
 {
 	ResourceHolder::insertFont("lumberjack", "resources/fonts/Lumberjack.otf");
@@ -13,6 +10,7 @@ int main()
 	ResourceHolder::insertFont("roboto-regular", "resources/fonts/Roboto-Regular.ttf");
 	ResourceHolder::insertTexture("menu", "resources/images/menu.png");
 	ResourceHolder::insertTexture("background", "resources/images/background-water.png");
+	ResourceHolder::insertTexture("background-info", "resources/images/background-modifiers.png");
 	ResourceHolder::insertTexture("algae-up", "resources/images/algae-up.png");
 	ResourceHolder::insertTexture("algae-left", "resources/images/algae-left.png");
 	ResourceHolder::insertTexture("algae-right", "resources/images/algae-right.png");
@@ -43,7 +41,8 @@ int main()
 	ResourceHolder::insertTexture("indicator", "resources/images/crab_indicator.png");
 	ResourceHolder::insertTexture("shell", "resources/images/shell.png");
 
-	Menu::menu();
+	Menu menu;
+	menu.menu();
 
 	return 0;
 }

@@ -4,6 +4,7 @@
 #include <vector>
 #include <thread>
 
+using namespace sf;
 
 class Snake
 {

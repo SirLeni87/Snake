@@ -3,6 +3,7 @@
 Missle::Missle(int x, int y)
 {
 	this->sprite.setPosition(x,y);
+	this->dir = Direction::west;
 }
 
 void Missle::setPosition(sf::Vector2f position, Direction direction)

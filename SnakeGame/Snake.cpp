@@ -1,6 +1,5 @@
 #include "Snake.h"
 
-using namespace sf;
 
 Snake::Snake(int x, int y)
 {
@@ -18,7 +17,6 @@ void Snake::addSegment(bool second)
 	else
 		segment.getSprite().setTexture(ResourceHolder::loadTexture("segment2"));
 
-	//segment.getSprite().setScale(1.5, 1.5);
 	segment.getSprite().setOrigin(segment.getSprite().getLocalBounds().width / 2.f, segment.getSprite().getLocalBounds().height / 2.f);
 	segment.setPosition(this->segments.back().getPosition());
 	this->segments.push_back(segment);
@@ -472,12 +470,6 @@ bool Snake::hasMissle()
 
 void Snake::afterSwap(bool second)
 {
-	if (!second)
-		std::cout << "W funkcji snake1: dir = " << Segment::dirToString(this->head.getDirection()) << std::endl;
-	else
-		std::cout << "W funkcji snake2: dir = " << Segment::dirToString(this->head.getDirection()) << std::endl;
-
-
 	Direction savedDir = this->dir;
 	this->head.setDirection(savedDir);
 

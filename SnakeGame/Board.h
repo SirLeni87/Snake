@@ -5,12 +5,13 @@
 #include "Buff.h"
 #include <vector>
 
+using namespace sf;
+
 class Board
 {
 public:
 	Board();
 	void draw(sf::RenderWindow&);
-	void drawMissle();
 	void initialize(Snake&, Food&, bool&);
 	void initialize(Snake&, Snake&, Food&, Food&, Missle&, Missle&, bool&);
 	std::vector<Block>& getWall();

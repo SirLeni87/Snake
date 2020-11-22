@@ -16,27 +16,8 @@ void Board::draw(RenderWindow& window)
 	}
 }
 
-void Board::drawMissle()
-{
-}
-
 void Board::initialize(Snake& snake, Food& food, bool& loadingDone)
 {
-	//ResourceHolder::insertTexture("background", "resources/images/background-water.png");
-	//ResourceHolder::insertTexture("algae-up", "resources/images/algae-up.png");
-	//ResourceHolder::insertTexture("algae-left", "resources/images/algae-left.png");
-	//ResourceHolder::insertTexture("algae-right", "resources/images/algae-right.png");
-	//ResourceHolder::insertTexture("algae-down", "resources/images/algae-down.png");
-	//ResourceHolder::insertTexture("algae-corner", "resources/images/algae-corner.png");
-	//ResourceHolder::insertTexture("head", "resources/images/head.png");
-	//ResourceHolder::insertTexture("segment", "resources/images/segment.png");
-	//ResourceHolder::insertTexture("bent-segment", "resources/images/bent-segment.png");
-	//ResourceHolder::insertTexture("tail", "resources/images/tail.png");
-	//ResourceHolder::insertTexture("bent-tail", "resources/images/tail-bent1.png");
-	//ResourceHolder::insertTexture("bent-tail2", "resources/images/tail-bent2.png");
-	//ResourceHolder::insertTexture("fish1", "resources/images/fish1.png");
-
-
 	this->backgroundSprite.setTexture(ResourceHolder::loadTexture("background"));
 	this->backgroundSprite.setPosition(0, 0);
 
@@ -73,34 +54,6 @@ void Board::initialize(Snake& snake, Food& food, bool& loadingDone)
 
 void Board::initialize(Snake& snake, Snake& snake2, Food& food, Food& food2, Missle& missle1, Missle& missle2, bool& loadingDone)
 {
-	//ResourceHolder::insertTexture("background", "resources/images/background-water.png");
-	//ResourceHolder::insertTexture("algae-up", "resources/images/algae-up.png");
-	//ResourceHolder::insertTexture("algae-left", "resources/images/algae-left.png");
-	//ResourceHolder::insertTexture("algae-right", "resources/images/algae-right.png");
-	//ResourceHolder::insertTexture("algae-down", "resources/images/algae-down.png");
-	//ResourceHolder::insertTexture("algae-corner", "resources/images/algae-corner.png");
-	//ResourceHolder::insertTexture("head", "resources/images/head.png");
-	//ResourceHolder::insertTexture("segment", "resources/images/segment.png");
-	//ResourceHolder::insertTexture("bent-segment", "resources/images/bent-segment.png");
-	//ResourceHolder::insertTexture("tail", "resources/images/tail.png");
-	//ResourceHolder::insertTexture("bent-tail", "resources/images/tail-bent1.png");
-	//ResourceHolder::insertTexture("bent-tail2", "resources/images/tail-bent2.png");
-	//ResourceHolder::insertTexture("head2", "resources/images/head2.png");
-	//ResourceHolder::insertTexture("segment2", "resources/images/segment2.png");
-	//ResourceHolder::insertTexture("bent-segment2", "resources/images/bent-segment2.png");
-	//ResourceHolder::insertTexture("tail2", "resources/images/tail2.png");
-	//ResourceHolder::insertTexture("bent-tail3", "resources/images/tail-bent3.png");
-	//ResourceHolder::insertTexture("bent-tail4", "resources/images/tail-bent4.png");
-	//ResourceHolder::insertTexture("fish1", "resources/images/fish1.png");
-	//ResourceHolder::insertTexture("fish2", "resources/images/fish2.png");
-	//ResourceHolder::insertTexture("nautilus", "resources/images/nautilus.png");
-	//ResourceHolder::insertTexture("shrimp", "resources/images/shrimp.png");
-	//ResourceHolder::insertTexture("pufferfish", "resources/images/pufferfish.png");
-	//ResourceHolder::insertTexture("jellyfish", "resources/images/jellyfish.png");
-	//ResourceHolder::insertTexture("whirlpool", "resources/images/whirlpool.png");
-	//ResourceHolder::insertTexture("net", "resources/images/net.png");
-	//ResourceHolder::insertTexture("sailfish", "resources/images/sailfish.png");
-
 	ResourceHolder::loadTexture("background").setRepeated(true);
 	this->backgroundSprite.setTextureRect(IntRect(0,0, 1536, 768));
 	this->backgroundSprite.setTexture(ResourceHolder::loadTexture("background"));

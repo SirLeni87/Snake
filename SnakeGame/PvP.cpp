@@ -1,66 +1,65 @@
 #include "PvP.h"
 
-using namespace sf;
-using namespace std;
-
 PvP::PvP()
+	: loseScreen(Vector2f(768, 768))
+	, winScreen(Vector2f(768, 768))
+{
+	for (int i = 0; i < 5; i++)
+	{
+		this->icon.loadFromFile("resources/images/snake-icon.png");
+	}
+
+	this->loseScreen.setFillColor(Color(196, 4, 4, 120));
+	this->loseScreen.setOrigin(loseScreen.getLocalBounds().width / 2, loseScreen.getLocalBounds().height / 2);
+	this->loseText.setFont(ResourceHolder::loadFont("lumberjack"));
+	this->loseText.setString("You Lost!");
+	this->loseText.setCharacterSize(70);
+	this->loseText.setOrigin(loseText.getLocalBounds().width / 2, loseText.getLocalBounds().height / 2 + 100);
+	this->loseText.setFillColor(Color::Black);
+
+	this->winScreen.setFillColor(Color(51, 202, 4, 120));
+	this->winScreen.setOrigin(winScreen.getLocalBounds().width / 2, winScreen.getLocalBounds().height / 2);
+	this->winText.setFont(ResourceHolder::loadFont("lumberjack"));
+	this->winText.setString("You Won!");
+	this->winText.setCharacterSize(70);
+	this->winText.setOrigin(winText.getLocalBounds().width / 2, winText.getLocalBounds().height / 2 + 100);
+	this->winText.setFillColor(Color::Black);
+
+
+	this->buttonSet.push_back(cb::Button(Vector2f(280, 550), Vector2f(190, 90), Color(230, 230, 230), 8, Color(225, 225, 225), "RESTART", Vector2f(280, 560), 45));
+	this->buttonSet.push_back(cb::Button(Vector2f(680, 550), Vector2f(190, 90), Color(230, 230, 230), 8, Color(225, 225, 225), "MENU", Vector2f(698, 555), 55));
+	this->buttonSet.push_back(cb::Button(Vector2f(1080, 550), Vector2f(190, 90), Color(230, 230, 230), 8, Color(225, 225, 225), "EXIT", Vector2f(1120, 555), 55));
+
+	for (cb::Button& b : this->buttonSet)
+	{
+		b.setFont(ResourceHolder::loadFont("roboto-thin"));
+	}
+
+	this->leftMissleIndicator.setTexture(ResourceHolder::loadTexture("indicator"));
+	this->leftMissleIndicator.setScale(0.75, 0.75);
+	this->leftMissleIndicator.setPosition(720, 10);
+	this->rightMissleIndicator.setTexture(ResourceHolder::loadTexture("indicator"));
+	this->rightMissleIndicator.setScale(0.75, 0.75);
+	this->rightMissleIndicator.setPosition(768, 10);
+
+	this->segmentCount1.setFont(ResourceHolder::loadFont("roboto-thin"));
+	this->segmentCount1.setCharacterSize(60);
+	this->segmentCount1.setPosition(368, 50);
+	this->segmentCount1.setFillColor(Color(92, 177, 219));
+	this->segmentCount2.setFont(ResourceHolder::loadFont("roboto-thin"));
+	this->segmentCount2.setCharacterSize(60);
+	this->segmentCount2.setPosition(1152, 50);
+	this->segmentCount2.setFillColor(Color(92, 177, 219));
+}
+
+bool PvP::play()
 {
 	srand(time(NULL));
 
-	RectangleShape loseScreen(Vector2f(768, 768));
-	loseScreen.setFillColor(Color(196, 4, 4, 120));
-	loseScreen.setPosition(384, 384);
-	loseScreen.setOrigin(loseScreen.getLocalBounds().width / 2, loseScreen.getLocalBounds().height / 2);
-	Text loseText;
-	loseText.setFont(ResourceHolder::loadFont("lumberjack"));
-	loseText.setString("You Lost!");
-	loseText.setCharacterSize(70);
-	loseText.setOrigin(loseText.getLocalBounds().width / 2, loseText.getLocalBounds().height / 2 + 100);
-	loseText.setPosition(loseScreen.getOrigin());
-	loseText.setFillColor(Color::Black);
-
-	RectangleShape winScreen(Vector2f(768, 768));
-	winScreen.setFillColor(Color(51, 202, 4, 120));
-	winScreen.setPosition(384, 384);
-	winScreen.setOrigin(winScreen.getLocalBounds().width / 2, winScreen.getLocalBounds().height / 2);
-	Text winText;
-	winText.setFont(ResourceHolder::loadFont("lumberjack"));
-	winText.setString("You Won!");
-	winText.setCharacterSize(70);
-	winText.setOrigin(winText.getLocalBounds().width / 2, winText.getLocalBounds().height / 2 + 100);
-	winText.setPosition(winScreen.getOrigin());
-	winText.setFillColor(Color::Black);
-
-	RectangleShape blackScreen(Vector2f(1536, 768));
-	blackScreen.setFillColor(Color::Black);
-	blackScreen.setPosition(0, 0);
-
-	cb::Button restartButton(Vector2f(280, 550), Vector2f(190, 90), Color(230, 230, 230), 8, Color(225, 225, 225), "RESTART", Vector2f(280, 560), 45);
-	restartButton.setFont(ResourceHolder::loadFont("roboto-thin"));
-
-	cb::Button menuButton(Vector2f(680, 550), Vector2f(190, 90), Color(230, 230, 230), 8, Color(225, 225, 225), "MENU", Vector2f(698, 555), 55);
-	menuButton.setFont(ResourceHolder::loadFont("roboto-thin"));
-
-	cb::Button exitButton(Vector2f(1080, 550), Vector2f(190, 90), Color(230, 230, 230), 8, Color(225, 225, 225), "EXIT", Vector2f(1120, 555), 55);
-	exitButton.setFont(ResourceHolder::loadFont("roboto-thin"));
+	resetEndCords();
 
 	RenderWindow window(VideoMode(1536, 768), "The Eel", Style::Titlebar | Style::Close);
-
-	Image icon;
-	for (int i = 0; i < 5; i++)
-	{
-		icon.loadFromFile("resources/images/snake-icon.png");
-	}
-	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-
-	Sprite leftMissleIndicator;
-	leftMissleIndicator.setTexture(ResourceHolder::loadTexture("indicator"));
-	leftMissleIndicator.setScale(0.75, 0.75);
-	leftMissleIndicator.setPosition(720,10);
-	Sprite rightMissleIndicator;
-	rightMissleIndicator.setTexture(ResourceHolder::loadTexture("indicator"));
-	rightMissleIndicator.setScale(0.75, 0.75);
-	rightMissleIndicator.setPosition(768,10);
+	window.setIcon(this->icon.getSize().x, this->icon.getSize().y, this->icon.getPixelsPtr());
 
 	Board board;
 	Event event;
@@ -70,21 +69,15 @@ PvP::PvP()
 	bool loadingDone = false;
 	bool threading = true;
 
-	Snake snake1(192, 192);
+	Snake snake1(528, 192);
 	Food food1;
 	Direction dirChange;
 	bool dirChanged = false;
 	bool growth = false;
 	bool lost = false;
 	std::vector<Buff> buffs1;
-	Missle leftMissle(-48,0);
+	Missle leftMissle(-48, 0);
 
-	Text segmentCount1;
-	segmentCount1.setFont(ResourceHolder::loadFont("roboto-thin"));
-	segmentCount1.setString(to_string(snake1.getSegmentList().size()));
-	segmentCount1.setCharacterSize(60);
-	segmentCount1.setPosition(368, 50);
-	segmentCount1.setFillColor(Color(92, 177, 219));
 
 	Snake snake2(1296, 192);
 	Food food2(true);
@@ -95,12 +88,8 @@ PvP::PvP()
 	std::vector<Buff> buffs2;
 	Missle rightMissle(-48, 0);
 
-	Text segmentCount2;
-	segmentCount2.setFont(ResourceHolder::loadFont("roboto-thin"));
-	segmentCount2.setString(to_string(snake2.getSegmentList().size()));
-	segmentCount2.setCharacterSize(60);
-	segmentCount2.setPosition(1152, 50);
-	segmentCount2.setFillColor(Color(92, 177, 219));
+	this->segmentCount1.setString(to_string(snake1.getSegmentList().size()));
+	this->segmentCount2.setString(to_string(snake2.getSegmentList().size()));
 
 	while (window.isOpen())
 	{
@@ -110,9 +99,10 @@ PvP::PvP()
 			{
 			case Event::Closed:
 				window.close();
-				break;
+				exit(0);
 
 			case Event::KeyPressed: //In case of any problems change to if((event.key.code == K::) && event.key.code != snake.prevDir) ([prevDir = dir] in move())
+				cout << (char)event.key.code << endl;
 				switch (event.key.code)
 				{
 				case Keyboard::W:
@@ -210,14 +200,11 @@ PvP::PvP()
 				loading.detach();
 				threading = false;
 			}
-
-			window.draw(blackScreen);
-			window.display();
 			clock.restart();
 			continue;
 		}
-		segmentCount1.setString(to_string(snake1.getSegmentList().size()));
-		segmentCount2.setString(to_string(snake2.getSegmentList().size()));
+		this->segmentCount1.setString(to_string(snake1.getSegmentList().size()));
+		this->segmentCount2.setString(to_string(snake2.getSegmentList().size()));
 
 		board.draw(window);
 		snake1.draw(window);
@@ -231,9 +218,9 @@ PvP::PvP()
 		window.draw(leftMissle.getSprite());
 		window.draw(rightMissle.getSprite());
 
-		if(snake1.hasMissle())
+		if (snake1.hasMissle())
 			window.draw(leftMissleIndicator);
-		if(snake2.hasMissle())
+		if (snake2.hasMissle())
 			window.draw(rightMissleIndicator);
 
 		for (Buff b : buffs1)
@@ -263,41 +250,14 @@ PvP::PvP()
 					window.draw(loseScreen);
 					window.draw(loseText);
 				}
-				restartButton.draw(window);
-				menuButton.draw(window);
-				exitButton.draw(window);
+				for (cb::Button b : this->buttonSet)
+				{
+					b.draw(window);
+				}
 
 				window.display();
 
-				while (1)
-				{
-					while (window.pollEvent(event))
-					{
-						if (event.type == Event::Closed)
-						{
-							window.close();
-							break;
-						}
-						if (event.type == Event::MouseButtonPressed)
-						{
-							if (restartButton.isMouseOver(window))
-							{
-								window.close();
-								PvP::PvP();
-							}
-							else if (menuButton.isMouseOver(window))
-							{
-								window.close();
-								Menu::menu();
-							}
-							else if (exitButton.isMouseOver(window))
-							{
-								window.close();
-								exit(0);
-							}
-						}
-					}
-				}
+				return endLoop(window, event);
 			}
 
 			if (dirChanged)
@@ -311,11 +271,11 @@ PvP::PvP()
 				snake2.setDirection(dirChange2);
 			}
 
-			if(!snake1.isStunned())
+			if (!snake1.isStunned())
 				move(snake1, growth);
 			if (!snake2.isStunned())
 				move(snake2, growth2, true);
-			
+
 			clock.restart();
 		}
 
@@ -329,40 +289,13 @@ PvP::PvP()
 			window.draw(winScreen);
 			window.draw(winText);
 
-			restartButton.draw(window);
-			menuButton.draw(window);
-			exitButton.draw(window);
+			for (cb::Button b : this->buttonSet)
+			{
+				b.draw(window);
+			}
 			window.display();
 
-			while (1)
-			{
-				while (window.pollEvent(event))
-				{
-					if (event.type == Event::Closed)
-					{
-						window.close();
-						break;
-					}
-					if (event.type == Event::MouseButtonPressed)
-					{
-						if (restartButton.isMouseOver(window))
-						{
-							window.close();
-							PvP::PvP();
-						}
-						else if (menuButton.isMouseOver(window))
-						{
-							window.close();
-							Menu::menu();
-						}
-						else if (exitButton.isMouseOver(window))
-						{
-							window.close();
-							exit(0);
-						}
-					}
-				}
-			}
+			return endLoop(window, event);
 		}
 
 		if (buffClock.getElapsedTime().asSeconds() > 5)
@@ -392,7 +325,7 @@ PvP::PvP()
 				lost = checkCollision(board, snake1, food1, growth);
 				lost2 = checkCollision(board, snake2, food2, growth2, true);
 			}
-			
+
 			checkBuffStatus(board, snake1, snake2, buffs1);
 			checkBuffStatus(board, snake1, snake2, buffs2, true);
 		}
@@ -425,9 +358,7 @@ bool PvP::checkCollision(Board& board, Snake& snake, Food& food, bool& growth, b
 
 	if (snake.getPosition() == food.getPosition())
 	{
-		cout << "oj tak snejq +1" << endl;
 		growth = true;
-
 		Vector2f newPos = randomizePosition(second);
 		food.getSprite().setPosition(newPos);
 	}
@@ -784,4 +715,45 @@ bool PvP::checkCollision(Vector2f cords)
 	}
 
 	return false;
+}
+
+bool PvP::endLoop(RenderWindow& window, Event& event)
+{
+	while (1)
+	{
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+			{
+				window.close();
+				exit(0);
+			}
+			if (event.type == Event::MouseButtonPressed)
+			{
+				if (this->buttonSet.at(0).isMouseOver(window))
+				{
+					window.close();
+					return true;
+				}
+				else if (this->buttonSet.at(1).isMouseOver(window))
+				{
+					window.close();
+					return false;
+				}
+				else if (this->buttonSet.at(2).isMouseOver(window))
+				{
+					window.close();
+					exit(0);
+				}
+			}
+		}
+	}
+}
+
+void PvP::resetEndCords()
+{
+	this->loseScreen.setPosition(Vector2f(384, 384));
+	this->winScreen.setPosition(Vector2f(384, 384));
+	this->loseText.setPosition(loseScreen.getOrigin());
+	this->winText.setPosition(winScreen.getOrigin());
 }

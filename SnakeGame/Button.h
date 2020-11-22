@@ -21,6 +21,7 @@ namespace custom_button
 		void setFont(Font&);
 		void setColor(Color);
 		void setActive(bool);
+		bool getActiveStatus();
 	};
 
 }
