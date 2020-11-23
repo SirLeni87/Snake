@@ -1,3 +1,0 @@
-﻿  SinglePlayer.cpp
-C:\Users\Tomasz\source\repos\Snake\SnakeGame\SinglePlayer.cpp(165): warning C4715: 'SinglePlayer::play': not all control paths return a value
-  SnakeGame.vcxproj -> C:\Users\Tomasz\Source\Repos\Snake\Debug\SnakeGame.exe
