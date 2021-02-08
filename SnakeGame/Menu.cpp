@@ -5,7 +5,7 @@ Menu::Menu() : window(VideoMode(1170, 787), "The Eel", Style::Titlebar | Style::
 	Image icon;
 	for (int i = 0; i < 5; i++)
 	{
-		icon.loadFromFile("resources/images/snake-icon.png");
+		icon.loadFromFile("../resources/images/snake-icon.png");
 	}
 
 	this->window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());

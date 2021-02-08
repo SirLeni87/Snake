@@ -6,7 +6,7 @@ PvP::PvP()
 {
 	for (int i = 0; i < 5; i++)
 	{
-		this->icon.loadFromFile("resources/images/snake-icon.png");
+		this->icon.loadFromFile("../resources/images/snake-icon.png");
 	}
 
 	this->loseScreen.setFillColor(Color(196, 4, 4, 120));
@@ -101,8 +101,7 @@ bool PvP::play()
 				window.close();
 				exit(0);
 
-			case Event::KeyPressed: //In case of any problems change to if((event.key.code == K::) && event.key.code != snake.prevDir) ([prevDir = dir] in move())
-				cout << (char)event.key.code << endl;
+			case Event::KeyPressed:
 				switch (event.key.code)
 				{
 				case Keyboard::W:
