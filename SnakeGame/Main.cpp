@@ -1,10 +1,14 @@
 #include "Menu.h"
 
+#include <filesystem>
+
 using namespace sf;
 using namespace std;
 
 int main()
 {
+	RenderWindow window(VideoMode(1,1), "The Eel", Style::None);
+
 	ResourceHolder::insertFont("lumberjack", "resources/fonts/Lumberjack.otf");
 	ResourceHolder::insertFont("roboto-thin", "resources/fonts/Roboto-Thin.ttf");
 	ResourceHolder::insertFont("roboto-regular", "resources/fonts/Roboto-Regular.ttf");
@@ -40,6 +44,8 @@ int main()
 	ResourceHolder::insertTexture("crab", "resources/images/crab.png");
 	ResourceHolder::insertTexture("indicator", "resources/images/crab_indicator.png");
 	ResourceHolder::insertTexture("shell", "resources/images/shell.png");
+
+	window.close();
 
 	Menu menu;
 	menu.menu();

@@ -38,7 +38,6 @@ void Menu::menu()
 	Event event;
 	SinglePlayer singlePlayer;
 	ModifierInfo modifierInfo;
-	//PvP pvp;
 
 	while (window.isOpen())
 	{

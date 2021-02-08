@@ -39,6 +39,11 @@ ModifierInfo::ModifierInfo()
 	this->texts.push_back(Text("The game ends when one eel gets to be 20 segments long, or when one \n"
 		"of the players (or both, if they hit something at the same time) loses.", ResourceHolder::loadFont("roboto-regular"), 25));
 
+	for (Text& t : this->texts)
+	{
+		t.setFillColor(Color(70, 110, 70));
+	}
+
 	for (int i = 0; i < this->texts.size() - 1; i++)
 	{
 		this->texts.at(i).setPosition(60, 192 + i*48);
