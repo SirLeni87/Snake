@@ -1,6 +1,5 @@
-## To try the game out just download and unzip EelGame.zip.
+# My approach to Snake - "The Eel".
 
-### My approach to Snake - "The Eel".
 Many programmers at some point of their education decide to create a simple game of Snake, and so did I, but I went a bit further. First of all, it's not a snake that You can play as, but an Eel.
 
 ##### This game if full of custom made textures that perfectly depict the underwater environment of eels and besides classic Singleplayer, it has a PvP mode.
