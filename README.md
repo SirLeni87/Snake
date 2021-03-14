@@ -13,11 +13,13 @@ Many programmers at some point of their education decide to create a simple game
 
 #### Player 1
 ![First Eel](https://github.com/TGrochowski87/EnhancedSnakeGame/blob/master/mdImages/snake1.jpg)
+
 Change direction with `WASD` in both single and multiplayer.
 If you have a shell (in PvP), shoot with `spacebar`
 
 ### Player 2
 ![Seccond Eel](https://github.com/TGrochowski87/EnhancedSnakeGame/blob/master/mdImages/snake2.jpg)
+
 Change direction with `arrow keys`.
 If you have a shell (in PvP), shoot with `right ctrl`
 
