@@ -6,7 +6,7 @@ PvP::PvP()
 {
 	for (int i = 0; i < 5; i++)
 	{
-		this->icon.loadFromFile("../resources/images/snake-icon.png");
+		this->icon.loadFromFile("../resources/images/icon.png");
 	}
 
 	this->loseScreen.setFillColor(Color(196, 4, 4, 120));

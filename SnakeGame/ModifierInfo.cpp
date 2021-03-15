@@ -5,7 +5,7 @@ ModifierInfo::ModifierInfo()
 {
 	for (int i = 0; i < 5; i++)
 	{
-		this->icon.loadFromFile("../resources/images/snake-icon.png");
+		this->icon.loadFromFile("../resources/images/icon.png");
 	}
 	this->background.setTexture(ResourceHolder::loadTexture("background-info"));
 	this->background.setPosition(0, 0);
