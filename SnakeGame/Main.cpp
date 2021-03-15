@@ -14,7 +14,7 @@ int main()
 	ResourceHolder::insertFont("roboto-regular", "../resources/fonts/Roboto-Regular.ttf");
 	ResourceHolder::insertTexture("menu", "../resources/images/menu.png");
 	ResourceHolder::insertTexture("background", "../resources/images/background-water.png");
-	ResourceHolder::insertTexture("background-info", "../resources/images/background-modifiers.png");
+	ResourceHolder::insertTexture("background-info", "../resources/images/info.jpg");
 	ResourceHolder::insertTexture("algae-up", "../resources/images/algae-up.png");
 	ResourceHolder::insertTexture("algae-left", "../resources/images/algae-left.png");
 	ResourceHolder::insertTexture("algae-right", "../resources/images/algae-right.png");

@@ -15,7 +15,5 @@ private:
 	sf::Sprite background;
 	Image icon;
 	cb::Button startButton;
-	std::vector<sf::Sprite> sprites;
-	std::vector<sf::Text> texts;
 };
 
