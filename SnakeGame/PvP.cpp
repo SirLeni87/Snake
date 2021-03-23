@@ -91,6 +91,8 @@ bool PvP::play()
 	this->segmentCount1.setString(to_string(snake1.getSegmentList().size()));
 	this->segmentCount2.setString(to_string(snake2.getSegmentList().size()));
 
+	this->swapped = false;
+
 	while (window.isOpen())
 	{
 		while (window.pollEvent(event))

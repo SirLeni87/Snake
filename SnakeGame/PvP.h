@@ -25,7 +25,7 @@ private:
 	void resetEndCords();
 
 	vector<Vector2f> takenCords;
-	bool swapped = false;
+	bool swapped;
 	float speedUpMod = 0;
 
 	vector<cb::Button> buttonSet;
