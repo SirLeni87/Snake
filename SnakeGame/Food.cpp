@@ -5,6 +5,13 @@ Food::Food(bool pvp)
 {
 	srand(time(NULL));
 
+	newPosition(pvp);
+}
+
+void Food::newPosition(bool pvp)
+{
+	//srand(time(NULL));
+
 	int x;
 	if (pvp)
 		x = ((rand() % 14 + 1) * 48) + 24 + 768;
@@ -14,21 +21,12 @@ Food::Food(bool pvp)
 	int y = ((rand() % 14 + 1) * 48) + 24;
 
 	this->sprite.setPosition(x, y);
+	this->position = sf::Vector2f(x, y);
 }
 
-void Food::newPosition(bool pvp)
+void Food::setPosition(sf::Vector2f newPos)
 {
-	srand(time(NULL));
-
-	int x;
-	if (pvp)
-		x = ((rand() % 14 + 1) * 48) + 24 + 768;
-	else
-		x = ((rand() % 14 + 1) * 48) + 24;
-
-	int y = ((rand() % 14 + 1) * 48) + 24;
-
-	this->sprite.setPosition(x,y);
+	this->position = newPos;
 }
 
 void Food::setTexture(std::string texture)
@@ -41,7 +39,8 @@ void Food::setTexture(std::string texture)
 
 sf::Vector2f Food::getPosition()
 {
-	return this->sprite.getPosition();
+	//return this->sprite.getPosition();
+	return this->position;
 }
 
 sf::Sprite& Food::getSprite()
@@ -52,4 +51,16 @@ sf::Sprite& Food::getSprite()
 void Food::draw(sf::RenderWindow& window)
 {
 	window.draw(this->sprite);
+}
+
+void Food::animate()
+{
+	printf("position = (%f, %f)\n", sprite.getPosition().x, sprite.getPosition().y);
+	currentOffsetIndex++;
+	if (currentOffsetIndex > 19)
+	{
+		currentOffsetIndex = 0;
+	}
+
+	this->sprite.setPosition(position.x, position.y + animationOffsets[currentOffsetIndex]);
 }

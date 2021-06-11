@@ -23,6 +23,7 @@ Buff::Buff(BuffName name, sf::Vector2f pos)
 	this->name = name;
 
 	this->sprite.setPosition(pos);
+	position = pos;
 }
 
 BuffName Buff::getBuffName()

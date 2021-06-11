@@ -132,12 +132,14 @@ void Snake::move(bool& growth, bool second)
 		addSegment(second);
 	}
 
+	//zapisuje pozycje
 	int tempX = this->head.getPosition().x;
 	int tempY = this->head.getPosition().y;
 	Direction prevHeadDir = this->head.getDirection();
 	Direction prevSegmentDir = this->segments.back().getDirection();
 	sf::Vector2f prevSegmentPosition = this->segments.back().getPosition();
 
+	//przesuwa glowe w konkretnym kierunku
 	switch (this->dir)
 	{
 	case Direction::north:
@@ -153,13 +155,16 @@ void Snake::move(bool& growth, bool second)
 		this->head.setPosition(tempX - 48, tempY);
 		break;
 	}
+	//ustawia kierunek glowy
 	this->head.setDirection(this->dir);
+	//ustawia kierunek segmentow
 	for (int i = this->segments.size() - 1; i > 0; i--)
 	{
 		this->segments[i].setDirection(this->segments[i - 1].getDirection());
 	}
 	this->segments[0].setDirection(prevHeadDir);
 
+	//przesuwa segmenty
 	for (int i = this->segments.size() - 1; i > 0; i--)
 	{
 		this->segments[i].setPosition(this->segments[i - 1].getPosition());
@@ -169,7 +174,7 @@ void Snake::move(bool& growth, bool second)
 	if (!growth)
 	{
 		this->tail.setDirection(prevSegmentDir);
-		this->tail.setPosition(prevSegmentPosition/*this->segments.back().getPosition().x, this->segments.back().getPosition().y*/);
+		this->tail.setPosition(prevSegmentPosition);
 	}
 	growth = false;
 

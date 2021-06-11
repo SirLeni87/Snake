@@ -65,9 +65,9 @@ bool PvP::play()
 	Event event;
 	Clock clock;
 	Clock buffClock;
+	Clock animationClock;
 
 	bool loadingDone = false;
-	bool threading = true;
 
 	Snake snake1(528, 192);
 	Food food1;
@@ -195,42 +195,19 @@ bool PvP::play()
 
 		if (!loadingDone)
 		{
-			if (threading)
-			{
-				thread loading(&PvP::initialize, this, ref(board), ref(snake1), ref(snake2), ref(food1), ref(food2), ref(leftMissle), ref(rightMissle), ref(loadingDone));
-				loading.detach();
-				threading = false;
-			}
+			initialize(board, snake1, snake2, food1, food2, leftMissle, rightMissle, loadingDone);
 			clock.restart();
 			continue;
 		}
 		this->segmentCount1.setString(to_string(snake1.getSegmentList().size()));
 		this->segmentCount2.setString(to_string(snake2.getSegmentList().size()));
 
-		board.draw(window);
-		snake1.draw(window);
-		snake2.draw(window);
-		food1.draw(window);
-		food2.draw(window);
+		drawBoard(window, board, snake1, snake2, food1, food2, leftMissle, rightMissle, buffs1, buffs2);
 
-		window.draw(segmentCount1);
-		window.draw(segmentCount2);
-
-		window.draw(leftMissle.getSprite());
-		window.draw(rightMissle.getSprite());
-
-		if (snake1.hasMissle())
-			window.draw(leftMissleIndicator);
-		if (snake2.hasMissle())
-			window.draw(rightMissleIndicator);
-
-		for (Buff b : buffs1)
+		if (animationClock.getElapsedTime().asMilliseconds() >= 100)
 		{
-			b.draw(window);
-		}
-		for (Buff b : buffs2)
-		{
-			b.draw(window);
+			animatePickUps(food1, food2, buffs1, buffs2);
+			animationClock.restart();
 		}
 
 		if (clock.getElapsedTime().asSeconds() >= (0.4 - this->speedUpMod))
@@ -335,6 +312,35 @@ bool PvP::play()
 	}
 }
 
+void PvP::drawBoard(RenderWindow& window, Board& board, Snake& snake1, Snake& snake2, Food& food1, Food& food2, Missle& leftMissle, Missle& rightMissle, std::vector<Buff> buffs1, std::vector<Buff> buffs2)
+{
+	board.draw(window);
+	snake1.draw(window);
+	snake2.draw(window);
+	food1.draw(window);
+	food2.draw(window);
+
+	window.draw(segmentCount1);
+	window.draw(segmentCount2);
+
+	window.draw(leftMissle.getSprite());
+	window.draw(rightMissle.getSprite());
+
+	if (snake1.hasMissle())
+		window.draw(leftMissleIndicator);
+	if (snake2.hasMissle())
+		window.draw(rightMissleIndicator);
+
+	for (Buff b : buffs1)
+	{
+		b.draw(window);
+	}
+	for (Buff b : buffs2)
+	{
+		b.draw(window);
+	}
+}
+
 void PvP::initialize(Board& board, Snake& snake, Snake& snake2, Food& food, Food& food2, Missle& missle1, Missle& missle2, bool& loadingDone)
 {
 	board.initialize(snake, snake2, food, food2, missle1, missle2, loadingDone);
@@ -362,6 +368,7 @@ bool PvP::checkCollision(Board& board, Snake& snake, Food& food, bool& growth, b
 		growth = true;
 		Vector2f newPos = randomizePosition(second);
 		food.getSprite().setPosition(newPos);
+		food.setPosition(newPos);
 	}
 
 	return false;
@@ -757,4 +764,19 @@ void PvP::resetEndCords()
 	this->winScreen.setPosition(Vector2f(384, 384));
 	this->loseText.setPosition(loseScreen.getOrigin());
 	this->winText.setPosition(winScreen.getOrigin());
+}
+
+void PvP::animatePickUps(Food& food1, Food& food2, std::vector<Buff>& buffs1, std::vector<Buff>& buffs2)
+{
+	food1.animate();
+	food2.animate();
+
+	for (Buff& b : buffs1)
+	{
+		b.animate();
+	}
+	for (Buff& b : buffs2)
+	{
+		b.animate();
+	}
 }

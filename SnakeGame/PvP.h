@@ -12,6 +12,7 @@ public:
 	bool play();
 
 private:
+	void drawBoard(RenderWindow&, Board&, Snake&, Snake&, Food&, Food&, Missle&, Missle&, std::vector<Buff>, std::vector<Buff>);
 	void initialize(Board&, Snake&, Snake&, Food&, Food&, Missle&, Missle&,bool&);
 	bool checkCollision(Board&, Snake&, Food&, bool&, bool = false);
 	void checkBuffStatus(Board&, Snake&, Snake&, std::vector<Buff>&, bool = false);
@@ -23,6 +24,7 @@ private:
 	bool checkCollision(Vector2f);
 	bool endLoop(RenderWindow&, Event&);
 	void resetEndCords();
+	void animatePickUps(Food&, Food&, std::vector<Buff>&, std::vector<Buff>&);
 
 	vector<Vector2f> takenCords;
 	bool swapped;
