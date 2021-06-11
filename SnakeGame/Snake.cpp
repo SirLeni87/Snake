@@ -171,13 +171,14 @@ void Snake::move(bool& growth, bool second)
 	}
 	this->segments[0].setPosition(tempX, tempY);
 
+	//ustawia odpowiednio ogon przy wydluzeniu
 	if (!growth)
 	{
 		this->tail.setDirection(prevSegmentDir);
 		this->tail.setPosition(prevSegmentPosition);
 	}
 	growth = false;
-
+	//dopasowuje tekstury (obraca)
 	updateTexture(second);
 }
 
