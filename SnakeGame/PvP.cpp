@@ -93,6 +93,8 @@ bool PvP::play()
 
 	this->swapped = false;
 
+	int algaeAnimCounter = 0;
+
 	while (window.isOpen())
 	{
 		while (window.pollEvent(event))
@@ -206,6 +208,14 @@ bool PvP::play()
 
 		if (animationClock.getElapsedTime().asMilliseconds() >= 100)
 		{
+			if (algaeAnimCounter > 0)
+			{
+				animateBoard(board);
+				algaeAnimCounter = 0;
+			}
+			else
+				algaeAnimCounter++;
+
 			animatePickUps(food1, food2, buffs1, buffs2);
 			animationClock.restart();
 		}
@@ -778,5 +788,13 @@ void PvP::animatePickUps(Food& food1, Food& food2, std::vector<Buff>& buffs1, st
 	for (Buff& b : buffs2)
 	{
 		b.animate();
+	}
+}
+
+void PvP::animateBoard(Board& board)
+{
+	for (int i = 0; i < 120; i++)
+	{
+		board.getWall()[i].updateAnimation();
 	}
 }

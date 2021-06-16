@@ -10,7 +10,6 @@ Food::Food(bool pvp)
 
 void Food::newPosition(bool pvp)
 {
-	//srand(time(NULL));
 
 	int x;
 	if (pvp)
@@ -39,7 +38,6 @@ void Food::setTexture(std::string texture)
 
 sf::Vector2f Food::getPosition()
 {
-	//return this->sprite.getPosition();
 	return this->position;
 }
 
@@ -55,7 +53,6 @@ void Food::draw(sf::RenderWindow& window)
 
 void Food::animate()
 {
-	printf("position = (%f, %f)\n", sprite.getPosition().x, sprite.getPosition().y);
 	currentOffsetIndex++;
 	if (currentOffsetIndex > 19)
 	{

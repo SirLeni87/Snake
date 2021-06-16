@@ -1,14 +1,8 @@
 #pragma once
 #include "ResourceHolder.h"
+#include "Direction.h"
 
 
-enum class Direction
-{
-	north,
-	east,
-	south,
-	west
-};
 
 class Segment
 {

@@ -29,7 +29,7 @@ sf::Texture& ResourceHolder::loadTexture(std::string name)
 
 	if (toFind == textures.end())
 	{
-		std::cout << "Could not find a texture!" << std::endl;
+		std::cout << "Could not find a texture " << name << "!" << std::endl;
 		exit(2);
 	}
 

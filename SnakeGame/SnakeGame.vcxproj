@@ -171,6 +171,7 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="Buff.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Direction.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Missle.h" />

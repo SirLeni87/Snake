@@ -18,6 +18,7 @@ private:
 	void move(Snake&, bool&);
 	bool endGame(RenderWindow&, Event&, bool);
 	bool endLoop(RenderWindow&, Event&);
+	void animateBoard(Board&);
 
 	vector<cb::Button> buttonSet;
 	RectangleShape loseScreen;

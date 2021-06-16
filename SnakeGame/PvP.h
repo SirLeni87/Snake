@@ -25,6 +25,7 @@ private:
 	bool endLoop(RenderWindow&, Event&);
 	void resetEndCords();
 	void animatePickUps(Food&, Food&, std::vector<Buff>&, std::vector<Buff>&);
+	void animateBoard(Board&);
 
 	vector<Vector2f> takenCords;
 	bool swapped;

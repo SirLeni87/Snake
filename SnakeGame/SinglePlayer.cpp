@@ -52,7 +52,9 @@ bool SinglePlayer::play(float difficulty)
 	Board board;
 	Event event;
 	Food food;
+
 	Clock clock;
+	Clock animationClock;
 
 	this->segmentCount.setString(to_string(snake.getSegmentList().size()));
 
@@ -66,6 +68,8 @@ bool SinglePlayer::play(float difficulty)
 
 	float velocityChange = difficulty; //hard - 0.002, medium - 0.0015, easy - 0.001, chillout - 0
 	float speedUp = 0;
+
+	int algaeAnimCounter = 0;
 
 	while (window.isOpen())
 	{
@@ -134,6 +138,20 @@ bool SinglePlayer::play(float difficulty)
 		snake.draw(window);
 		food.draw(window);
 		window.draw(this->segmentCount);
+
+		if (animationClock.getElapsedTime().asMilliseconds() >= 100)
+		{
+			if (algaeAnimCounter > 0)
+			{
+				animateBoard(board);
+				algaeAnimCounter = 0;
+			}
+			else
+				algaeAnimCounter++;
+
+			food.animate();
+			animationClock.restart();
+		}
 
 
 		if (clock.getElapsedTime().asSeconds() >= (0.5 - speedUp))
@@ -249,5 +267,13 @@ bool SinglePlayer::endLoop(RenderWindow& window, Event& event)
 				}
 			}
 		}
+	}
+}
+
+void SinglePlayer::animateBoard(Board& board)
+{
+	for (Block& b : board.getWall())
+	{
+		b.updateAnimation();
 	}
 }

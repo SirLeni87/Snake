@@ -15,11 +15,12 @@ int main()
 	ResourceHolder::insertTexture("menu", "../resources/images/menu.png");
 	ResourceHolder::insertTexture("background", "../resources/images/background-water.png");
 	ResourceHolder::insertTexture("background-info", "../resources/images/info.jpg");
-	ResourceHolder::insertTexture("algae-up", "../resources/images/algae-up.png");
+	/*ResourceHolder::insertTexture("algae-up", "../resources/images/algae-up.png");
 	ResourceHolder::insertTexture("algae-left", "../resources/images/algae-left.png");
 	ResourceHolder::insertTexture("algae-right", "../resources/images/algae-right.png");
-	ResourceHolder::insertTexture("algae-down", "../resources/images/algae-down.png");
-	ResourceHolder::insertTexture("algae-corner", "../resources/images/algae-corner.png");
+	ResourceHolder::insertTexture("algae-down", "../resources/images/algae-down.png");*/
+	ResourceHolder::insertTexture("algae-corner", "../resources/images/algae-corner.jpg");
+	ResourceHolder::insertTexture("algae", "../resources/images/algae.jpg");
 	ResourceHolder::insertTexture("head", "../resources/images/head.png");
 	ResourceHolder::insertTexture("segment", "../resources/images/segment.png");
 	ResourceHolder::insertTexture("bent-segment", "../resources/images/bent-segment.png");
