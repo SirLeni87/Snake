@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Audio.hpp>
 #include "Board.h"
 #include "Button.h"
 
@@ -26,6 +27,8 @@ private:
 	void resetEndCords();
 	void animatePickUps(Food&, Food&, std::vector<Buff>&, std::vector<Buff>&);
 	void animateBoard(Board&);
+
+	sf::Music music;
 
 	vector<Vector2f> takenCords;
 	bool swapped;

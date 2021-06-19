@@ -1,13 +1,35 @@
 #include "PvP.h"
+#include <iostream>
 
 PvP::PvP()
 	: loseScreen(Vector2f(768, 768))
 	, winScreen(Vector2f(768, 768))
 {
-	for (int i = 0; i < 5; i++)
+
+	int attemptLimit = 5;
+	while (!this->icon.loadFromFile("../resources/images/icon.png"))
 	{
-		this->icon.loadFromFile("../resources/images/icon.png");
+		attemptLimit++;
+
+		if (attemptLimit == 0)
+		{
+			std::cout << "ERROR loading icon" << std::endl;
+			exit(3);
+		}
 	}
+
+	attemptLimit = 5;
+	while (!this->music.openFromFile("../resources/audio/soundtrack.ogg"))
+	{
+		attemptLimit++;
+
+		if (attemptLimit == 0)
+		{
+			std::cout << "ERROR loading soudtrack" << std::endl;
+			exit(4);
+		}
+	}
+	music.setLoop(true);
 
 	this->loseScreen.setFillColor(Color(196, 4, 4, 120));
 	this->loseScreen.setOrigin(loseScreen.getLocalBounds().width / 2, loseScreen.getLocalBounds().height / 2);
@@ -95,6 +117,8 @@ bool PvP::play()
 
 	int algaeAnimCounter = 0;
 
+	music.play();
+
 	while (window.isOpen())
 	{
 		while (window.pollEvent(event))
@@ -102,6 +126,7 @@ bool PvP::play()
 			switch (event.type)
 			{
 			case Event::Closed:
+				music.stop();
 				window.close();
 				exit(0);
 
@@ -737,6 +762,7 @@ bool PvP::checkCollision(Vector2f cords)
 
 bool PvP::endLoop(RenderWindow& window, Event& event)
 {
+	music.stop();
 	while (1)
 	{
 		while (window.pollEvent(event))

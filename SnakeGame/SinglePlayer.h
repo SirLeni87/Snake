@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Audio.hpp>
 #include "Board.h"
 #include "Button.h"
 #include "Menu.h"
@@ -20,6 +21,7 @@ private:
 	bool endLoop(RenderWindow&, Event&);
 	void animateBoard(Board&);
 
+	sf::Music music;
 	vector<cb::Button> buttonSet;
 	RectangleShape loseScreen;
 	RectangleShape winScreen;
