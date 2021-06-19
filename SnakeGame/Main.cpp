@@ -1,12 +1,15 @@
 #include "Menu.h"
+#include <Windows.h>
 
 #include <filesystem>
 
 using namespace sf;
 using namespace std;
 
-int main()
+int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, char*, int nShowCmd)
 {
+	srand(time(NULL));
+
 	RenderWindow window(VideoMode(1,1), "The Eel", Style::None);
 
 	ResourceHolder::insertFont("lumberjack", "../resources/fonts/Lumberjack.otf");

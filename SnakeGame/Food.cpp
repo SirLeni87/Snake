@@ -3,8 +3,6 @@
 
 Food::Food(bool pvp)
 {
-	srand(time(NULL));
-
 	newPosition(pvp);
 }
 
